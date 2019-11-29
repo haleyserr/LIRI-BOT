@@ -42,7 +42,7 @@ node liri.ja spotify-this-song "single ladies"
    
    * `concert-this`
    
-   ![concert-this](/images/concert-this.png)
+   ![concert-this](./images/concert-this.png)
    
 
 
@@ -54,14 +54,14 @@ node liri.ja spotify-this-song "single ladies"
 
    * `movie-this`
 
-   ![novie-this](/images/logo.png)
-    Format: ![Alt Text](url)
+   ![novie-this](./images/movie-this.png)
+    
 
 
    * `do-what-it-says`
    
-   ![do-what-it-says](/images/logo.png)
-    Format: ![Alt Text](url)
+   ![do-what-it-says](./images/do-what-it-says.png)
+   
 
 
 5. Deployed Link
