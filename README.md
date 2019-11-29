@@ -42,25 +42,25 @@ node liri.ja spotify-this-song "single ladies"
    
    * `concert-this`
    
-   ![concert-this](./images/concert-this.png)
-    Format: ![Alt Text](url)
+   ![concert-this](/images/concert-this.png)
+   
 
 
    * `spotify-this-song`
 
-   ![GitHub Logo](/images/logo.png)
-    Format: ![Alt Text](url)
+   ![spotify-this-song](./images/spotify-this-song.png)
+    
 
 
    * `movie-this`
 
-   ![GitHub Logo](/images/logo.png)
+   ![novie-this](/images/logo.png)
     Format: ![Alt Text](url)
 
 
    * `do-what-it-says`
    
-   ![GitHub Logo](/images/logo.png)
+   ![do-what-it-says](/images/logo.png)
     Format: ![Alt Text](url)
 
 
