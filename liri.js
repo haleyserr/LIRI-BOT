@@ -16,15 +16,19 @@ const value = process.argv[3];
 switch (action) {
     case "concert-this":
         concertThis();
+        break;
 
     case "spotify-this-song":
         spotifyThisSong();
+        break;
 
     case "movie-this":
-       movieThis();
+        movieThis();
+        break;
 
     case "do-what-it-says":
-       doWhatItSays();
+        doWhatItSays();
+        break;
 
 };
 
@@ -35,10 +39,10 @@ switch (action) {
 function concertThis() {
 
     axios.get(`https://rest.bandsintown.com/artists/${value}/events?app_id=${process.env.BANDS_IN_TOWN_APP_ID}`).then(
-       
-    function (response) {
 
-            console.log("The next conert is at " + response.data[0].venue.name + " in " + response.data[0].venue.country + " on " + response.data[0].datetime)
+        function (response) {
+
+            console.log("The next concert is at " + response.data[0].venue.name + " in " + response.data[0].venue.country + " on " + response.data[0].datetime)
 
         });
 
@@ -54,27 +58,46 @@ function spotifyThisSong() {
     var spotify = new Spotify({
         id: process.env.SPOTIFY_ID,
         secret: process.env.SPOTIFY_SECRET
-      });
+    });
 
     if (process.argv.length > 3) {
 
-        spotify.search({ type: 'track', query: `${value}` }, function(err, data) {
-            if (err) {
-              return console.log('Error occurred: ' + err);
-            }
-           
-          console.log("Song: " + data.tracks.items[0].name); 
-          console.log("Artist: " + data.tracks.items[0].artists[0].name);
-          console.log("Album: " + data.tracks.items[0].album.name);
-          console.log(data.tracks.items[0].external_urls.spotify);
-          
+        spotify.search({
+            type: 'track',
+            query: `${value}`
 
-          });
-    
-    
-    }
-    
-    else if (process.argv.length < 4) {
+        }, function (err, data) {
+            if (err) {
+                return console.log('Error occurred: ' + err);
+            }
+
+            console.log("Song: " + data.tracks.items[0].name);
+            console.log("Artist: " + data.tracks.items[0].artists[0].name);
+            console.log("Album: " + data.tracks.items[0].album.name);
+            console.log(data.tracks.items[0].external_urls.spotify);
+
+
+        });
+
+
+    } else if (process.argv.length < 4) {
+
+        spotify.search({
+            type: 'track',
+            query: `the+sign`,
+            year: '1993'
+
+        }, function (err, data) {
+            if (err) {
+                return console.log('Error occurred: ' + err);
+            }
+
+            console.log("Song: " + data.tracks.items[0].name);
+            console.log("Artist: " + data.tracks.items[0].artists[0].name);
+            console.log("Album: " + data.tracks.items[0].album.name);
+
+
+        });
 
 
     };
@@ -103,9 +126,7 @@ function movieThis() {
 
             })
 
-    } 
-    
-    else if (process.argv.length < 4) {
+    } else if (process.argv.length < 4) {
 
         defaultValue = 'Mr. Nobody';
 
@@ -125,13 +146,58 @@ function movieThis() {
 
 //do -what - it - says `
 //node liri.js do-what-it-says `
-// Using the `fs ` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
-// It should run `
-//spotify - this - song ` for "I Want it That Way," as follows the text in `
-//random.txt `.
-// Edit the text in random.txt to test out the feature for movie-this and concert-this.
+//spotify - this - song ` for "I Want it That Way," as follows the text in `random.txt `.
+
 
 function doWhatItSays() {
 
-};
+    fs.readFile("random.txt", "utf8", function (err, data) {
 
+        
+
+        var spotify = new Spotify({
+            id: process.env.SPOTIFY_ID,
+            secret: process.env.SPOTIFY_SECRET
+        });
+
+        spotify.search({
+            type: 'track',
+            query: `${data}`
+
+        }, function (err, data) {
+            if (err) {
+                return console.log('Error occurred: ' + err);
+            }
+
+            console.log("Song: " + data.tracks.items[0].name);
+            console.log("Artist: " + data.tracks.items[0].artists[0].name);
+            console.log("Album: " + data.tracks.items[0].album.name);
+            console.log(data.tracks.items[0].external_urls.spotify);
+
+            getNewSong();
+
+
+        });
+
+
+    })
+
+    //Loop through random songs(buggy)
+
+        function getNewSong(){
+
+        const randomSongs = ["i+want+it+that+way", "anaconda", "single+ladies" , "money+for+nothing"]
+        let randomCounter = 0;
+
+        randomCounter ++;
+        newSong = randomSongs[randomCounter];
+        
+        fs.writeFile("random.txt", newSong , function (err, data){
+    
+        });
+    
+    
+    }
+    
+
+};
